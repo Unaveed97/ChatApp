@@ -28,14 +28,19 @@ export default class HomeScreen extends Component {
 
     componentDidMount() {
         this.state.dbRef.on('child_added', (val) => {
+            //console.log(val.val())
+            //console.log(val.key)
             let person = val.val()
             person.phone = val.key
+            console.log('hello',User)
+            console.log('hello1',person)
             if (person.phone === User.phone) {
                 User.name = person.name
                 User.image = person.image ? person.image : null
             }
             else {
                 this.setState((prevState) => {
+                    console.log('i am here too',person)
                     return {
                         users: [...prevState.users, person]
                     }
@@ -46,6 +51,7 @@ export default class HomeScreen extends Component {
 
     renderRow = ({ item }) => {
         return (
+            
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Chat', item)}
                 style={{ flexDirection: 'row', alignItems:'center',padding: 10, borderBottomColor: '#ccc', borderBottomWidth: 1 }}>
